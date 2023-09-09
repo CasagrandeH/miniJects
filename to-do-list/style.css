@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: bisque;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header {
+    color: white;
+    text-align: center;
+    padding: 30px;
+    width: 1200px;
+    margin: auto;
+    text-shadow: 1px 1px 2px black;
+    background-color: rgb(255, 204, 142);
+    border-radius: 10px 10px 0 0 ;
+    border: 4px solid rgb(255, 204, 142);
+    border-bottom: none;
+    box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.484);
+}
+
+.all {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    width: 1200px;
+    min-height: 450px;
+    margin: auto;
+    border-radius: 0 0 10px 10px;
+    padding: 20px;
+    border: 4px solid rgb(255, 204, 142);
+    border-top: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.451);
+    box-shadow: inset 1px 0px 1px 1px rgba(0, 0, 0, 0.484);
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+.form, .to-do, .is-done {
+    text-align: center;
+    width: 350px;
+    padding: 20px;
+    background-color: rgba(128, 128, 128, 0.459);
+    border: 4px solid rgba(128, 128, 128);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.469);
+    max-height: 370px;
+    min-height: 100px;
+    overflow-y: auto;
+}
+
+.form {
+    
+    font-size: 1.3em;
+}
+
+.form input {
+    background-color: rgba(128, 128, 128, 0.459);
+    box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.398);
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.form button {
+    width: 30px;
+    border-radius: 4px;
+    color: rgb(38, 255, 38);
+    font-weight: bold;
+    border-color: rgb(38, 255, 38);
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.475);
+}
+
+
+.items {
+    list-style: none;
+}
+
+.item::first-letter {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.item {
+    color: rgba(128, 128, 128);
+    text-shadow: 1px 1px 1px black;
+}
+
+.done {
+    margin-left: 10px;
+    color: rgb(38, 255, 38);
+    font-weight: bold;
+    border-color: rgb(38, 255, 38);
+}
+
+.del {
+    margin-left: 5px;
+    border-color: rgb(255, 38, 38);
+}
+
+.btns {   
+    width: 20px;
+    height: 20px;
+}
+
+footer {
+    text-align: center;
+    margin: 30px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 1px 1px 2px black;
+}
