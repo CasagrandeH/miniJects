@@ -9,48 +9,36 @@
 </head>
 <body>
     <div class="container">
+        <div class="shadow"></div>
+        <input type="text" name="display" id="display" readonly>
 
-        <input type="text" name="display" id="display">
-
-        <div class="action-buttons">
-
-            <button class="item act" value="CE">CE</button>
-            <button class="item act" value="C">C</button>
-            <button class="item act" value="del">&lArr;</button>
-            
-        </div>
-
-        <div class="basic-ops">
-
-            <button class="item ops" value="/">/</button>
-            <button class="item ops" value="x">x</button>
-            <button class="item ops" value="-">-</button>
-            <button class="item ops" value="+">+</button>
-            <button class="item ops" value="=">=</button>
-
-        </div>
-
-        <div class="numbers">
-            
-            <button class="item num" value="7">7</button>
-            <button class="item num" value="8">8</button>
-            <button class="item num" value="9">9</button>
-            
-            <button class="item num" value="4">4</button>
-            <button class="item num" value="5">5</button>
-            <button class="item num" value="6">6</button>
-
-            <button class="item num" value="1">1</button>
-            <button class="item num" value="2">2</button>
-            <button class="item num" value="3">3</button>
-
-            <button class="item ops" value="-/+">-/+</button>
-
-            <button class="item num" value="0">0</button>
-
-            <button class="item ops" value=".">.</button>
-        </div>
+        <button class="item act" value="CE" id="clear">CE</button>
+        <button class="item act" value="C" id="clear">C</button>
+        <button class="item act" value="del" id="del">&lArr;</button>
+    
+        <button class="item ops" value="/" id="divide">/</button>
+        <button class="item ops" value="*" id="mult">*</button>
+        <button class="item ops" value="-" id="minus">-</button>
+        <button class="item ops" value="+" id="plus">+</button>
+        <button class="item ops" value="=" id="equals">=</button>
         
+        <button class="item num" value="7" id="seven">7</button>
+        <button class="item num" value="8" id="eight">8</button>
+        <button class="item num" value="9" id="nine">9</button>
+        
+        <button class="item num" value="4" id="four">4</button>
+        <button class="item num" value="5" id="five">5</button>
+        <button class="item num" value="6" id="six">6</button>
+
+        <button class="item num" value="1" id="one">1</button>
+        <button class="item num" value="2" id="two">2</button>
+        <button class="item num" value="3" id="tree">3</button>
+
+        <button class="item ops" value="-/+" id="pos-neg">-/+</button>
+
+        <button class="item num" value="0" id="zero">0</button>
+
+        <button class="item ops" value="." id="dot">.</button>
         
     </div>
     <script src="main.js"></script>

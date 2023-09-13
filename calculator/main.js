@@ -2,6 +2,7 @@ const display = document.querySelector('#display')
 const nums = document.querySelectorAll('.num')
 const ops = document.querySelectorAll('.ops')
 const acts = document.querySelectorAll('.act')
+const equals = document.querySelector('#equals')
 
 function calcDisplay(e) {
     let len = display.value.length
@@ -37,12 +38,22 @@ function action(e) {
     
 }
 
-nums.forEach(num => {
-    num.addEventListener('click', calcDisplay)
-})
-ops.forEach(op => {
-    op.addEventListener('click', calcDisplay)
-})
-acts.forEach(act => {
-    act.addEventListener('click', action)
-})
+function finishCalc() {
+    if (/[+\-*/]/.test(display.value[display.value.length - 1])) return
+
+    display.value = eval(display.value)
+}
+function events() {
+    nums.forEach(num => {
+        num.addEventListener('click', calcDisplay)
+    })
+    ops.forEach(op => {
+        if (op.value != "=") op.addEventListener('click', calcDisplay)
+    })
+    acts.forEach(act => {
+        act.addEventListener('click', action)
+    })
+    equals.addEventListener('click', finishCalc)
+}
+
+addEventListener('load', events)
