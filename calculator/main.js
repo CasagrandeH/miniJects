@@ -4,7 +4,7 @@ const ops = document.querySelectorAll('.ops')
 const acts = document.querySelectorAll('.act')
 const equals = document.querySelector('#equals')
 
-function calcDisplay(e) {
+function updateDisplay(e) {
     let len = display.value.length
     const button = e.target
 
@@ -38,22 +38,93 @@ function action(e) {
     
 }
 
-function finishCalc() {
-    if (/[+\-*/]/.test(display.value[display.value.length - 1])) return
+function displayResult() {
+    const expression = display.value
+    const precedence = { '+': 1, '-': 1, '*': 2, '/': 2 }
 
-    display.value = eval(display.value)
+    const operators = []
+    const operands = []
+
+    let currentNumber = ''
+    
+    for (let i = 0; i < expression.length; i++) {
+        const char = expression[i]
+
+        if (/[+\-*/]/.test(char)) {
+            if (currentNumber !== '') {
+                operands.push(parseFloat(currentNumber));
+                currentNumber = ''
+            }
+
+            while (
+                operators.length > 0 &&
+                precedence[operators[operators.length - 1]] >= precedence[char]
+            ) {
+                const operator = operators.pop()
+                const right = operands.pop()
+                const left = operands.pop()
+                operands.push(calculate(left, operator, right))
+            }
+            
+            operators.push(char)
+        } else {
+            currentNumber += char
+        }
+    }
+
+    if (currentNumber !== '') {
+        operands.push(parseFloat(currentNumber))
+    }
+
+    while (operators.length > 0) {
+        const operator = operators.pop()
+        const right = operands.pop()
+        const left = operands.pop()
+        operands.push(calculate(left, operator, right))
+    }
+
+    if (operands.length === 1) {
+        display.value = operands[0]
+    } else {
+        display.value = "ERROR"
+    }
 }
+
+function calculate(firstOperand, operator, secondOperand) {
+    let result = null
+
+    if (operator === "+") {
+        result = parseFloat(firstOperand) + parseFloat(secondOperand)
+    } else if (operator === "-") {
+        result = parseFloat(firstOperand) - parseFloat(secondOperand)
+    } else if (operator === "*") {
+        result = parseFloat(firstOperand) * parseFloat(secondOperand)
+    } else if (operator === "/") {
+        if (secondOperand === 0) {
+            alert('Division by zero is not allowed.')
+            return
+        }
+        result = parseFloat(firstOperand) / parseFloat(secondOperand)
+    }
+    const remainder = result.toString().split('.')[1]
+
+    if (result.toString().includes('.') && remainder.length > 10) {
+        return parseFloat(result).toFixed(10)
+    }
+    return result
+}
+
 function events() {
     nums.forEach(num => {
-        num.addEventListener('click', calcDisplay)
+        num.addEventListener('click', updateDisplay)
     })
     ops.forEach(op => {
-        if (op.value != "=") op.addEventListener('click', calcDisplay)
+        if (op.value != "=") op.addEventListener('click', updateDisplay)
     })
     acts.forEach(act => {
         act.addEventListener('click', action)
     })
-    equals.addEventListener('click', finishCalc)
+    equals.addEventListener('click', displayResult)
 }
 
 addEventListener('load', events)
