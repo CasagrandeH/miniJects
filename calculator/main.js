@@ -1,4 +1,5 @@
 const display = document.querySelector('#display')
+const items = document.querySelectorAll('.item')
 const nums = document.querySelectorAll('.num')
 const ops = document.querySelectorAll('.ops')
 const acts = document.querySelectorAll('.act')
@@ -40,6 +41,7 @@ function action(e) {
 
 function displayResult() {
     const expression = display.value
+    if (expression.length < 3) return
     const precedence = { '+': 1, '-': 1, '*': 2, '/': 2 }
 
     const operators = []
@@ -114,7 +116,15 @@ function calculate(firstOperand, operator, secondOperand) {
     return result
 }
 
+function pressed(e) {
+    e.target.classList.toggle('depresso')
+}
+
 function events() {
+    items.forEach(item => {
+        item.addEventListener('mousedown', pressed)
+        item.addEventListener('mouseup', pressed)
+    })
     nums.forEach(num => {
         num.addEventListener('click', updateDisplay)
     })
@@ -125,6 +135,7 @@ function events() {
         act.addEventListener('click', action)
     })
     equals.addEventListener('click', displayResult)
+
 }
 
 addEventListener('load', events)

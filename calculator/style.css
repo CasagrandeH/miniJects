@@ -1,16 +1,22 @@
 @charset "utf-8";
 
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@font-face {
+    font-family: 'DS-Digital';
+    src: url('fonts/DS-DIGIT.TTF');
+}
+
 :root {
-    --font: 'Poppins', Arial, Helvetica, sans-serif;
+    --basic-font: 'Poppins', Arial, Helvetica, sans-serif;
+    --calc-font: 'DS-Digital', 'Poppins', sans-serif;
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: var(--font);
 }
 
 body {
@@ -19,6 +25,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.862);
+    font-family: var(--basic-font);
 }
 
 .container {
@@ -39,7 +46,7 @@ body {
 .item {
     width: 60px;
     height: 60px;
-    color: rgba(255, 255, 255, 0.256);
+    color: rgba(255, 255, 255, 0.613);
     font-size: 1.4em;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.66);
@@ -50,7 +57,9 @@ body {
     cursor: pointer;
 }
 
-
+.depresso {
+    box-shadow: inset -2px -2px 1px 1px rgba(255, 255, 255, 0.256);
+}
 
 .shadow {
     grid-area: 1 / 1 / 1 / -1;
@@ -67,10 +76,10 @@ body {
     width: 320px;
     padding: 5px;
     background-color: rgba(234, 255, 0, 0.834);
-    color: white;
+    font-family: var(--calc-font);
     text-align: right;
-    text-shadow: 1px 1px 1px black;
-    font-size: 2em;
+    letter-spacing: 2px;
+    font-size: 2.4em;
     box-shadow: inset 1px 1px 4px 1px black;
     outline: none;
 }
