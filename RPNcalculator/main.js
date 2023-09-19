@@ -9,11 +9,6 @@ function updateDisplay(e) {
     let len = display.value.length
     const button = e.target
 
-    if (button.value === "=") {
-        display.value = Number(eval(display.value).toFixed(2))
-        return
-    }
-
     const isNumber = button.classList.contains('num')
 
     if (display.value === '' && !isNumber) return
@@ -41,59 +36,89 @@ function action(e) {
 
 function displayResult() {
     const expression = display.value
-    if (expression.length < 3) return
-    const precedence = { '+': 1, '-': 1, '*': 2, '/': 2 }
 
-    const operators = []
-    const operands = []
+    let postfix = infixToPostfix(expression)
+    const stack = []
 
-    let currentNumber = ''
-    
-    for (let i = 0; i < expression.length; i++) {
-        const char = expression[i]
+    for (let token of postfix) {
 
-        if (/[+\-*/]/.test(char)) {
-            if (currentNumber !== '') {
-                operands.push(parseFloat(currentNumber));
-                currentNumber = ''
-            }
-
-            while (
-                operators.length > 0 &&
-                precedence[operators[operators.length - 1]] >= precedence[char]
-            ) {
-                const operator = operators.pop()
-                const right = operands.pop()
-                const left = operands.pop()
-                operands.push(calculate(left, operator, right))
-            }
-            
-            operators.push(char)
+        if (!isNaN(token)) {
+            stack.push(parseFloat(token))
         } else {
-            currentNumber += char
+            const b = stack.pop() 
+            const a = stack.pop()
+            stack.push(calculate(a, token, b))
         }
+
     }
 
-    if (currentNumber !== '') {
-        operands.push(parseFloat(currentNumber))
+    display.value = stack[0]
+}
+
+function infixToPostfix(exp) {
+    const expression = exp
+    const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 }
+
+    const output = []
+    const operators = []
+
+    let i = 0
+    while (i < expression.length) {
+        const char = expression[i]
+        // Check if first number is negative, no need to check if 2nd 3rd and so forth
+        // are negatives because the calculator does not handle parenthesis,
+        // so its not possible to work with negative nums other than in the first
+        //operation of the expression.
+        if (char === "-" && i === 0) {
+            let num = char
+            let nextChar = expression[i + 1]
+            while (
+                i < expression.length - 1 &&
+                (!isNaN(nextChar) || nextChar === ".")
+            ) {
+                num += nextChar
+                i++
+                nextChar = expression[i + 1]
+            }
+
+            output.push(num)
+        } else if (/[+\-*/]/.test(char)) {
+            while (
+                operators.length > 0 &&
+                precedence[char] <= precedence[operators[operators.length - 1]]
+            ) {
+                output.push(operators.pop())
+            }
+            operators.push(char)
+        } else if (!isNaN(char) || char === ".") {
+            let num = char
+            let isDecimal = char === "."
+
+            while (
+                i < expression.length - 1 &&
+                (!isNaN(expression[i + 1]) || (!isDecimal && expression[i + 1] === "."))
+            ) {
+                num += expression[i + 1]
+                if (expression[i + 1] === ".") {
+                    isDecimal = true;
+                }
+                i++
+            }
+            output.push(num)
+        }
+        i++
     }
 
     while (operators.length > 0) {
-        const operator = operators.pop()
-        const right = operands.pop()
-        const left = operands.pop()
-        operands.push(calculate(left, operator, right))
+        output.push(operators.pop())
     }
 
-    if (operands.length === 1) {
-        display.value = operands[0]
-    } else {
-        display.value = "ERROR"
-    }
+    return output
 }
 
+
 function calculate(firstOperand, operator, secondOperand) {
-    let result = null
+    let result = ''
 
     if (operator === "+") {
         result = parseFloat(firstOperand) + parseFloat(secondOperand)
