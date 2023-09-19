@@ -3,6 +3,9 @@ DS-DIGI.TTF
 DS-DIGIB.TTF
 DS-DIGII.TTF
 
+# used for debugging and etc
+teste.js
+
 # Logs
 logs
 *.log
