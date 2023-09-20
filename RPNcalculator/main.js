@@ -5,7 +5,10 @@ const ops = document.querySelectorAll('.ops')
 const acts = document.querySelectorAll('.act')
 const equals = document.querySelector('#equals')
 
+addEventListener('load', events)
+
 function updateDisplay(e) {
+
     let len = display.value.length
     const button = e.target
 
@@ -13,9 +16,15 @@ function updateDisplay(e) {
 
     if (display.value === '' && !isNumber) return
 
-    if (len > 0 && button.classList.contains('ops') && isNaN(parseInt(display.value[len - 1]))) return
+    if (
+        len > 0 && 
+        button.classList.contains('ops') &&
+        isNaN(parseInt(display.value[len - 1])) &&
+        display.value[len - 1] !== ")"
+        ) return
 
     if (button.value === "-/+" && !isNaN(parseInt(display.value))) {
+        if (display.value.match(/[()+/*]/)) return
         display.value *= -1
         return
     }
@@ -28,8 +37,25 @@ function action(e) {
 
     if (button.value === "del") {
         display.value = display.value.toString().slice(0, -1)
-    } else if (button.value ==="CE" || button.value === "C") {
+    } else if (button.value ==="CE") {
         display.value = ''
+    } else if (button.value === "()") {
+        let left = 0
+        let right = 0
+
+        for (let i = 0; i < display.value.length; i++) {
+            const char = display.value[i]
+            if (char === "(") {
+                left++
+            } else if (char === ")") {
+                right++
+            }
+        }
+        if (left > right) {
+            display.value += ")"
+        } else if (right > left || left == right) {
+            display.value += "("
+        }
     }
     
 }
@@ -37,22 +63,11 @@ function action(e) {
 function displayResult() {
     const expression = display.value
 
-    let postfix = infixToPostfix(expression)
-    const stack = []
+    const postfix = infixToPostfix(expression)
+    const result = evaluateRPN(postfix)
 
-    for (let token of postfix) {
+    display.value = result
 
-        if (!isNaN(token)) {
-            stack.push(parseFloat(token))
-        } else {
-            const b = stack.pop() 
-            const a = stack.pop()
-            stack.push(calculate(a, token, b))
-        }
-
-    }
-
-    display.value = stack[0]
 }
 
 function infixToPostfix(exp) {
@@ -69,6 +84,28 @@ function infixToPostfix(exp) {
         // are negatives because the calculator does not handle parenthesis,
         // so its not possible to work with negative nums other than in the first
         //operation of the expression.
+        if (char === "(") {
+            i++
+            let num = expression[i]
+            let nextChar = expression[i + 1]
+
+            while (
+                i < expression.length - 1 &&
+                nextChar !== ")"
+            ) {
+                num += nextChar
+                i++
+                nextChar = expression[i + 1]
+            }
+
+            const elements = infixToPostfix(num)
+            
+            for (token of elements) {
+                output.push(token)
+            }
+            i++
+        }
+
         if (char === "-" && i === 0) {
             let num = char
             let nextChar = expression[i + 1]
@@ -116,6 +153,26 @@ function infixToPostfix(exp) {
     return output
 }
 
+function evaluateRPN(postfix) {
+    const stack = []
+
+    for (let token of postfix) {
+
+        if (!isNaN(token)) {
+            stack.push(parseFloat(token))
+        } else {
+            const b = stack.pop() 
+            const a = stack.pop()
+            stack.push(calculate(a, token, b))
+        }
+
+    }
+
+    if (stack.length === 1) {
+        return stack[0]
+    }
+    return "ERROR"
+}
 
 function calculate(firstOperand, operator, secondOperand) {
     let result = ''
@@ -162,5 +219,3 @@ function events() {
     equals.addEventListener('click', displayResult)
 
 }
-
-addEventListener('load', events)

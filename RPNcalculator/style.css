@@ -10,7 +10,7 @@
 
 :root {
     --basic-font: 'Poppins', Arial, Helvetica, sans-serif;
-    --calc-font: 'DS-Digital', 'Poppins', sans-serif;
+    --calc-font: 'DS-Digital', 'Poppins', monospace;
 }
 
 * {
