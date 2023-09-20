@@ -8,18 +8,25 @@ function eventLineup() {
         { repeat: 999, duration: 4000, yoyo: true }
     )
     tween.start()
-    //
+    // 
+    const defaultCity = "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch"
     const apiKey = "d5a00433b9c2fb7234b39d376866f34a"
     const apiURL = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 
     const searchBox = document.querySelector('.search input')
     const searchBtn = document.querySelector('.search button')
 
-    fetchData(apiURL + "Vancouver" + apiKey)
+    fetchData(apiURL + defaultCity + apiKey)
 
     searchBtn.addEventListener('click', () => {
         const city = searchBox.value.toString().trim()
         fetchData(apiURL, city, apiKey)
+    })
+    searchBox.addEventListener('keydown', (e) => {
+        if (e.key === "Enter") {
+            const city = searchBox.value.toString().trim()
+            fetchData(apiURL, city, apiKey)
+        }
     })
 }
 

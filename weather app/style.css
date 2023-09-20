@@ -108,8 +108,29 @@ body {
     font-size: 45px;
     font-weight: 400;
     margin-top: -10px;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
+
+.weather h2::-webkit-scrollbar {
+    width: 0px; /* Adjust the width of the scrollbar */
+    height: 10px;
+}
+
+.weather h2::-webkit-scrollbar-thumb {
+    background-color: var(--color1); /* Change the color of the scrollbar thumb */
+    border-radius: 5px; /* Add rounded corners to the thumb */
+    height: 5px;
+}
+
+.weather h2::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color3);
+}
+
+h2::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Change the color on hover */
+    
+    border-radius: 5px;
+  }
 
 .col {
     display: flex; 
