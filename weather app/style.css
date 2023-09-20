@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --basic-font: "Poppins", Helvetica, Arial, sans-serif;
+    --color1: #193452;
+    --color2: #00dada;
+    --color3: #4c6f97;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--basic-font);
+}
+
+body {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: #252525;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    width: clamp(250px, 90%, 475px);
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, var(--color2), var(--color1));
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.774);
+    text-shadow: 1px 1px 1px black;
+    border-radius: 30px;
+    padding: 25px 50px;
+    text-align: center;
+
+}
+
+.blob-motion {
+    position: absolute;
+    
+}
+
+.card {
+    width: clamp(235px, 100%, 470px);
+    color: white; 
+    z-index: 999;
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search input {
+    outline: 0;
+    border: 0;
+    background-color: white; 
+    border-radius: 30px;
+    color: #252525;
+    padding: 10px 25px;
+    height: 60px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+}
+
+.search .btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+    border: 2px solid #193452;
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.498);
+    cursor: pointer;
+    background: url("imgs/search.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.weather-icon {
+    width: 170px;
+    margin-top: 30px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
+}
+
+.weather h1 {
+    font-size: 80px;
+    font-weight: 500;
+}
+
+.weather h2 {
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+    overflow-x: scroll;
+}
+
+.col {
+    display: flex; 
+    align-items: center;
+    text-align: left;
+}
+
+.col img {
+    width: 40px;
+    margin: 0  10px;
+    
+}
+
+.humidity, .wind {
+    font-size: 28px;
+    margin-top: -6px;
+}
