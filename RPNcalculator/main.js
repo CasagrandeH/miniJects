@@ -8,7 +8,6 @@ const equals = document.querySelector('#equals')
 addEventListener('load', events)
 
 function updateDisplay(e) {
-
     let len = display.value.length
     const button = e.target
 
@@ -80,10 +79,6 @@ function infixToPostfix(exp) {
     let i = 0
     while (i < expression.length) {
         const char = expression[i]
-        // Check if first number is negative, no need to check if 2nd 3rd and so forth
-        // are negatives because the calculator does not handle parenthesis,
-        // so its not possible to work with negative nums other than in the first
-        //operation of the expression.
         if (char === "(") {
             i++
             let num = expression[i]
@@ -192,8 +187,8 @@ function calculate(firstOperand, operator, secondOperand) {
     }
     const remainder = result.toString().split('.')[1]
 
-    if (result.toString().includes('.') && remainder.length > 10) {
-        return parseFloat(result).toFixed(10)
+    if (result.toString().includes('.') && remainder.length > 6) {
+        return parseFloat(result).toFixed(6)
     }
     return result
 }
