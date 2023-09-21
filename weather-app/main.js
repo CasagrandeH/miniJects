@@ -52,6 +52,6 @@ function updateAppData(data) {
 
 function updateAppIcon(weather) {
     const icon = document.querySelector('img')
-    icon.src = `imgs/${weather.toLowerCase()}.png`
+    icon.src = `../weather-app/imgs/${weather.toLowerCase()}.png`
     icon.alt = `${weather}`
 }
