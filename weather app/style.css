@@ -120,6 +120,7 @@ body {
     background-color: var(--color1); /* Change the color of the scrollbar thumb */
     border-radius: 5px; /* Add rounded corners to the thumb */
     height: 5px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .weather h2::-webkit-scrollbar-thumb:hover {
@@ -127,7 +128,7 @@ body {
 }
 
 h2::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* Change the color on hover */
+    background-color: #252525; /* Change the color on hover */
     
     border-radius: 5px;
   }
